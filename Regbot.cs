@@ -103,7 +103,6 @@ namespace RegBot
         }
         public decimal predictionHigh(decimal x)
         {
-            x = x * config.ratioBetweenOrders;
             if (regression.a > 0)
             {
                 return Math.Round(regression.a * (limitKline + x + config.bonusProjection) + regression.b + regression.b * percent, quotePrecision);
@@ -116,7 +115,6 @@ namespace RegBot
 
         public decimal predictionLow(decimal x)
         {
-            x = x * config.ratioBetweenOrders;
             if (regression.a > 0)
             {
                 return Math.Round(regression.a * (limitKline - x + config.bonusProjection) + regression.b + regression.b * -percent, quotePrecision);

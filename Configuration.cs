@@ -15,28 +15,17 @@ namespace RegBot
         public decimal correlationRatioLost;
         public decimal bonusProjection;
 
-        public decimal ratioBetweenOrders;
-        public int maxOrders;
-        public bool autoBuyBNB;
-        public decimal nQuoteAssetMax;
-
-
-        public Configuration(string idBot, string apikey, string secretkey, string assetBase, string assetQuote, int idInterval, int minKline, int maxKline,
-            decimal correlationRatioLost, decimal ratioBetweenOrders, int maxOrders, int autoBuyBNB, decimal nQuoteAssetMax, decimal bonusProjection)
+        public Configuration(string idBot, string assetBase, string assetQuote, int idInterval, int minKline, int maxKline,
+            decimal correlationRatioLost, decimal bonusProjection)
         {
             this.idBot = idBot;
-            binanceClient = new Client(apikey, secretkey);
+            binanceClient = new Client("HLyEMvA6tOAbVdkXQlOpLZSAn6iMwhtIgHtKwc59ZLxMJhhn8KIkhSG9SyyUg3aF", "bh6IsOZRGbGxdGu3TZa7uzXG4ZwZwZz4hizCNylBRIWkg1HrFavsJXjevyWsIjDd");
             this.assetBase = assetBase.ToUpper();
             this.assetQuote = assetQuote.ToUpper();
             this.interval = getKlineInterval(idInterval);
             this.minKline = minKline;
             this.maxKline = maxKline;
             this.correlationRatioLost = correlationRatioLost;
-            this.ratioBetweenOrders = ratioBetweenOrders;
-            this.maxOrders = maxOrders;
-            if (autoBuyBNB == 1) this.autoBuyBNB = true;
-            else this.autoBuyBNB = false;
-            this.nQuoteAssetMax = nQuoteAssetMax;
             this.bonusProjection = bonusProjection;
         }
 

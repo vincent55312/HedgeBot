@@ -23,8 +23,14 @@ namespace RegBot
 
         public bool CheckCredentials()
         {
-            if (client.General.GetAccountInfo().Success) return true;
-            else return false;
+            if (client.General.GetAccountInfo().Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

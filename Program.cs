@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace RegBot
 {
@@ -8,35 +8,30 @@ namespace RegBot
     {
         static void Main(string[] args)
         {
-            Sql hedgetrade = new Sql();
-            hedgetrade.loadAllConfig();
-            int i = 0;
+            List<Simulation> std = new List<Simulation>();
+            List<Simulation_d> older = new List<Simulation_d>();
+
+            std.Add(new Simulation(new Regbot(new Configuration("1s", "BTC", "USDT", 3, 40, 80, 0.01M, 5))));
+            std.Add(new Simulation(new Regbot(new Configuration("2s", "BTC", "USDT", 3, 80, 160, 0.01M, 5))));
+            std.Add(new Simulation(new Regbot(new Configuration("3s", "BTC", "USDT", 3, 40, 80, 0.05M, 5))));
+            std.Add(new Simulation(new Regbot(new Configuration("4s", "BTC", "USDT", 3, 80, 160, 0.05M, 5))));
+
+            older.Add(new Simulation_d(new Regbot_d(new Configuration("1o", "BTC", "USDT", 3, 40, 80, 0.01M, 5))));
+            older.Add(new Simulation_d(new Regbot_d(new Configuration("2o", "BTC", "USDT", 3, 80, 160, 0.01M, 5))));
+            older.Add(new Simulation_d(new Regbot_d(new Configuration("3o", "BTC", "USDT", 3, 40, 80, 0.05M, 5))));
+            older.Add(new Simulation_d(new Regbot_d(new Configuration("4o", "BTC", "USDT", 3, 80, 160, 0.05M, 5))));
 
             while (true)
             {
-                foreach (var instance in hedgetrade.instances)
+                foreach(var item in std)
                 {
-                    new Writer("success", "Run on bot id :" + instance.Value.regbot.config.idBot);
-
-                    instance.Value.Run();
-                    Thread.Sleep(1 * 60 * 1000);
+                    item.Run();
+                    Thread.Sleep(20 * 1000);
                 }
-
-                foreach (var instance in hedgetrade.instances_d)
+                foreach (var item in older)
                 {
-                    new Writer("success", "Run on bot id :" + instance.Value.regbot.config.idBot);
-
-                    instance.Value.Run();
-                    Thread.Sleep(1 * 60 * 1000);
-                }
-                
-                hedgetrade.reload();
-
-                i += (5 * 60 * 1000);
-                if (i >= 60 * 1000 * 60 * 24)
-                {
-                    i = 0;
-                    hedgetrade.loadAllConfig();
+                    item.Run();
+                    Thread.Sleep(20 * 1000);
                 }
             }
         }

@@ -14,19 +14,6 @@ namespace RegBot
             this.priceY = priceY;
         }
     }
-    public class PosDv
-    {
-        public decimal priceY { get; set; }
-        public decimal timeX { get; set; }
-        public decimal gapAvg { get; set; }
-
-        public PosDv(decimal timeX, decimal priceY, decimal deviationAvg)
-        {
-            this.timeX = timeX;
-            this.priceY = priceY;
-            this.gapAvg = deviationAvg;
-        }
-    }
 
     public class Regression
     {
